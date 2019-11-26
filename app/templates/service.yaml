@@ -4,6 +4,7 @@ metadata:
   name: hello-world-canary
   labels:
     app: hello-world-canary
+    foo: bar
 spec:
   type: {{ .Values.service.type }}
   ports:
