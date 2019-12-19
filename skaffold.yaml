@@ -6,3 +6,16 @@ deploy:
       - name: app
         wait: true
         chartPath: ./app
+        setValueTemplates:
+          istioDomain: "{{.ISTIO_DOMAIN}}"
+        setValues:
+          https: true
+profiles:
+  - name: dev
+    patches:
+      - op: replace
+        path: /deploy/helm/releases/0/setValueTemplates/domain
+        value: "istio.localhost"
+      - op: replace
+        path: /deploy/helm/releases/0/setValueTemplates/https
+        value: false

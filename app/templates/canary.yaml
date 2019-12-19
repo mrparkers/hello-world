@@ -1,0 +1,57 @@
+apiVersion: flagger.app/v1alpha3
+kind: Canary
+metadata:
+  name: {{ .Chart.Name }}
+  labels:
+    app: {{ .Chart.Name }}
+spec:
+  provider: istio
+  # deployment reference
+  targetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ .Values.appName }}
+  # the maximum time in seconds for the canary deployment
+  # to make progress before it is rollback (default 600s)
+  progressDeadlineSeconds: {{ .Values.canary.progressDeadlineSeconds }}
+  service:
+    # container port
+    port: 5555
+    gateways:
+      - "{{ .Chart.Name }}-gateway"
+    hosts:
+      - {{ .Chart.Name }}.{{ .Values.istioDomain }}
+    # Istio traffic policy (optional)
+    trafficPolicy:
+      tls:
+        # use ISTIO_MUTUAL when mTLS is enabled
+        mode: DISABLE
+    # HTTP timeout (optional)
+    timeout: 30s
+  # promote the canary without analysing it (default false)
+  skipAnalysis: false
+  canaryAnalysis:
+    interval: {{ .Values.canary.analysis.interval }}
+    threshold: {{ .Values.canary.analysis.threshold }}
+    maxWeight: {{ .Values.canary.analysis.maxWeight }}
+    stepWeight: {{ .Values.canary.analysis.stepWeight }}
+    metrics:
+      - name: "500 error rate"
+        threshold: 99
+        query: |
+          100 - sum(
+            rate(
+                istio_requests_total{
+                  destination_service=~"{{ .Values.appName }}-canary.{{ .Release.Namespace }}.svc.cluster.local",
+                  response_code!~"5.*"
+                }[1m]
+            )
+          )
+          /
+          sum(
+              rate(
+                  istio_requests_total{
+                  destination_service=~"{{ .Values.appName }}-canary.{{ .Release.Namespace }}.svc.cluster.local",
+                  }[1m]
+              )
+          ) * 100

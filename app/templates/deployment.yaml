@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: hello-world-canary
+  name: {{ .Values.appName }}
   labels:
-    app: hello-world-canary
+    app: {{ .Values.appName }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: hello-world-canary
+      app: {{ .Values.appName }}
   template:
     metadata:
       labels:
-        app: hello-world-canary
+        app: {{ .Values.appName }}
     spec:
       containers:
         - name: {{ .Chart.Name }}

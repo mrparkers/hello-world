@@ -1,40 +1,49 @@
 const {Server} = require('hapi');
+const Chance = require('chance');
+
+let chance;
 
 const createServer = (port) => {
-    const server = new Server({
-        host: '0.0.0.0',
-        port
-    });
+	const server = new Server({
+		host: '0.0.0.0',
+		port
+	});
 
-    server.route({
-        path: '/',
-        method: 'GET',
-        handler: (request, h) => {
-            return 'index route';
-        }
-    });
+	server.route({
+		path: '/',
+		method: 'GET',
+		handler: (request, h) => {
+			if (chance.bool()) {
+				throw new Error('oops')
+			} else {
+				return 'cool'
+			}
+		}
+	});
 
-    server.route({
-        path: '/healthz',
-        method: 'GET',
-        handler: () => 'ok'
-    });
+	server.route({
+		path: '/healthz',
+		method: 'GET',
+		handler: () => 'ok'
+	});
 
-    return server;
+	return server;
 };
 
 (async () => {
-    const server = createServer(5555);
+	chance = new Chance();
 
-    ['SIGINT', 'SIGTERM'].forEach((signal) => {
-        process.on(signal, async () => {
-            console.log(`Caught signal ${signal}, terminating...`);
+	const server = createServer(5555);
 
-            await server.stop();
-        });
-    });
+	['SIGINT', 'SIGTERM'].forEach((signal) => {
+		process.on(signal, async () => {
+			console.log(`Caught signal ${signal}, terminating...`);
 
-    await server.start();
+			await server.stop();
+		});
+	});
 
-    console.log('Listening...');
+	await server.start();
+
+	console.log('Listening...');
 })();

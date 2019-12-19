@@ -1,18 +1,6 @@
 pipeline {
   agent any
   stages {
-    stage('Build') {
-      steps {
-        echo "building (not really)"
-        sleep 10
-      }
-    }
-    stage('Test') {
-      steps {
-        echo "testing (not really)"
-        sleep 30
-      }
-    }
     stage('Deploy to Staging') {
       agent {
         label "lead-toolchain-skaffold"
@@ -22,6 +10,7 @@ pipeline {
       }
       environment {
         TILLER_NAMESPACE = "${env.stagingNamespace}"
+        ISTIO_DOMAIN   = "${env.stagingDomain}"
       }
       steps {
         container('skaffold') {
@@ -39,6 +28,7 @@ pipeline {
       }
       environment {
         TILLER_NAMESPACE = "${env.productionNamespace}"
+        ISTIO_DOMAIN   = "${env.stagingDomain}"
       }
       steps {
         container('skaffold') {
