@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: mrparkers/hello-world-canary
-  tag: v1
+  tag: v3
   pullPolicy: IfNotPresent
 
 enableVirtualservice: false
