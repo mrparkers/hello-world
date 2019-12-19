@@ -13,11 +13,7 @@ const createServer = (port) => {
 		path: '/',
 		method: 'GET',
 		handler: (request, h) => {
-			if (chance.bool()) {
-				throw new Error('oops')
-			} else {
-				return 'cool'
-			}
+			return "index route 2";
 		}
 	});
 
