@@ -37,7 +37,7 @@ spec:
     stepWeight: {{ .Values.canary.analysis.stepWeight }}
     metrics:
       - name: "500 error rate"
-        threshold: 99
+        threshold: 5
         query: |
           100 - sum(
             rate(
