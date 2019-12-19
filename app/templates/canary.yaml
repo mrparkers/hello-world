@@ -36,22 +36,6 @@ spec:
     maxWeight: {{ .Values.canary.analysis.maxWeight }}
     stepWeight: {{ .Values.canary.analysis.stepWeight }}
     metrics:
-      - name: "500 error rate"
-        threshold: 5
-        query: |
-          100 - sum(
-            rate(
-                istio_requests_total{
-                  destination_service=~"{{ .Values.appName }}-canary.{{ .Release.Namespace }}.svc.cluster.local",
-                  response_code!~"5.*"
-                }[1m]
-            )
-          )
-          /
-          sum(
-              rate(
-                  istio_requests_total{
-                    destination_service=~"{{ .Values.appName }}-canary.{{ .Release.Namespace }}.svc.cluster.local",
-                  }[1m]
-              )
-          ) * 100
+      - name: request-success-rate
+        threshold: 99
+        interval: 1m
