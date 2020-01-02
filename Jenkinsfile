@@ -28,7 +28,7 @@ pipeline {
       }
       environment {
         TILLER_NAMESPACE = "${env.productionNamespace}"
-        ISTIO_DOMAIN   = "${env.stagingDomain}"
+        ISTIO_DOMAIN   = "${env.productionDomain}"
       }
       steps {
         container('skaffold') {
