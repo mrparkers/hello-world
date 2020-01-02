@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: {{ .Chart.Name }}
-          image: "{{ .Values.image.repository }}:v3"
+          image: "{{ .Values.image.repository }}:v4"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
