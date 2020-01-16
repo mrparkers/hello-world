@@ -18,7 +18,7 @@ spec:
     # container port
     port: 5555
     gateways:
-      - "{{ .Chart.Name }}-gateway"
+      - "istio-system/app-gateway"
     hosts:
       - {{ .Chart.Name }}-{{ .Release.Namespace }}.{{ .Values.istioDomain }}
     # Istio traffic policy (optional)
