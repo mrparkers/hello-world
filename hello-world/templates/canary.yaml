@@ -20,7 +20,7 @@ spec:
     gateways:
       - "{{ .Chart.Name }}-gateway"
     hosts:
-      - {{ .Chart.Name }}.{{ .Values.istioDomain }}
+      - {{ .Chart.Name }}-{{ .Release.Namespace }}.{{ .Values.istioDomain }}
     # Istio traffic policy (optional)
     trafficPolicy:
       tls:
