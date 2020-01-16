@@ -1,4 +1,4 @@
-appName: hello-world-canary
+appName: hello-world
 domain: istio.localhost
 https: false
 
