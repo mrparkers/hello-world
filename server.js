@@ -22,6 +22,18 @@ const createServer = (port) => {
 	});
 
 	server.route({
+		path: '/event',
+		method: 'POST',
+		handler: (request, h) => {
+			console.log(request.payload);
+
+			return {
+				response: 'ok'
+			}
+		}
+	});
+
+	server.route({
 		path: '/healthz',
 		method: 'GET',
 		handler: () => 'ok'

@@ -3,9 +3,9 @@ kind: Config
 deploy:
   helm:
     releases:
-      - name: app
+      - name: hello-world
         wait: true
-        chartPath: ./app
+        chartPath: ./hello-world
         setValueTemplates:
           istioDomain: "{{.ISTIO_DOMAIN}}"
         setValues:
