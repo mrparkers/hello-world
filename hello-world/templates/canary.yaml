@@ -20,7 +20,7 @@ spec:
     gateways:
       - "istio-system/app-gateway"
     hosts:
-      - {{ .Chart.Name }}-{{ .Release.Namespace }}.{{ .Values.istioDomain }}
+      - {{ .Chart.Name }}-{{ .Values.productName }}.{{ .Values.istioDomain }}
     # Istio traffic policy (optional)
     trafficPolicy:
       tls:
