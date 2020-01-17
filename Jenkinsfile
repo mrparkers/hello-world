@@ -29,7 +29,7 @@ pipeline {
       }
       environment {
         TILLER_NAMESPACE = "${env.productionNamespace}"
-        ISTIO_DOMAIN   = "production.${env.appDomain}"
+        ISTIO_DOMAIN   = "prod.${env.appDomain}"
         PRODUCT_NAME = "${env.product}"
       }
       steps {
