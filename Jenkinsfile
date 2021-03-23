@@ -9,13 +9,12 @@ pipeline {
         branch 'master'
       }
       environment {
-        TILLER_NAMESPACE = "${env.stagingNamespace}"
-        ISTIO_DOMAIN   = "${env.stagingDomain}"
+        NAMESPACE = "${env.stagingNamespace}"
         PRODUCT_NAME = "${env.product}"
       }
       steps {
         container('skaffold') {
-          sh "skaffold deploy -n ${TILLER_NAMESPACE}"
+          sh "skaffold deploy -n ${NAMESPACE}"
           stageMessage "finished"
         }
       }
@@ -28,13 +27,12 @@ pipeline {
         branch 'master'
       }
       environment {
-        TILLER_NAMESPACE = "${env.productionNamespace}"
-        ISTIO_DOMAIN   = "${env.productionDomain}"
+        NAMESPACE = "${env.productionNamespace}"
         PRODUCT_NAME = "${env.product}"
       }
       steps {
         container('skaffold') {
-          sh "skaffold deploy -n ${TILLER_NAMESPACE}"
+          sh "skaffold deploy -n ${NAMESPACE}"
           stageMessage "finished"
         }
       }

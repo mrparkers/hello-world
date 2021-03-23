@@ -7,7 +7,6 @@ deploy:
         wait: true
         chartPath: ./hello-world
         setValueTemplates:
-          istioDomain: "{{.ISTIO_DOMAIN}}"
           productName: "{{.PRODUCT_NAME}}"
         setValues:
           https: true
