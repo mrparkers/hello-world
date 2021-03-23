@@ -1,5 +1,5 @@
 pipeline {
-  agent any
+  agent { label "minimal" }
   stages {
     stage('Deploy to Staging') {
       agent {
@@ -15,8 +15,15 @@ pipeline {
       steps {
         container('skaffold') {
           sh "skaffold deploy -n ${NAMESPACE}"
-          stageMessage "finished"
+          stageMessage "finished deploying to staging"
         }
+      }
+    }
+    stage('Test') {
+      agent none
+      steps {
+        echo "testing"
+        sleep 30
       }
     }
     stage('Deploy to Production') {
@@ -33,7 +40,7 @@ pipeline {
       steps {
         container('skaffold') {
           sh "skaffold deploy -n ${NAMESPACE}"
-          stageMessage "finished"
+          stageMessage "finished deploying to production"
         }
       }
     }
