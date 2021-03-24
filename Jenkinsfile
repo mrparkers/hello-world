@@ -39,7 +39,7 @@ pipeline {
       }
       steps {
         container('skaffold') {
-          sh "skaffold deploy -n ${NAMESPACE}"
+          sh "isdghdfghdfgnfg"
           stageMessage "finished deploying to production"
         }
       }
