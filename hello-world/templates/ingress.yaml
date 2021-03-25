@@ -1,4 +1,4 @@
-apiVersion: networking.k8s.io/v1
+apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: {{ .Values.appName }}
@@ -16,7 +16,5 @@ spec:
         paths:
           - path: /
             backend:
-              service:
-                name: {{ .Values.appName }}
-                port:
-                  number: 5555
+              serviceName: {{ .Values.appName }}
+              servicePort: 5555
