@@ -22,7 +22,7 @@ pipeline {
     stage('Test') {
       agent none
       steps {
-        sh "dfgdsfg"
+        echo "testing"
         sleep 30
       }
     }
