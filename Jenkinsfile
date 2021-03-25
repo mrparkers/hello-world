@@ -1,7 +1,7 @@
 pipeline {
   agent { label "minimal" }
   stages {
-    stage('Deploy to Staging') {
+    stage('Build') {
       agent {
         label "lead-toolchain-skaffold"
       }
@@ -22,7 +22,7 @@ pipeline {
     stage('Test') {
       agent none
       steps {
-        echo "testing"
+        sh "dfgdsfg"
         sleep 30
       }
     }
