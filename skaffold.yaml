@@ -8,6 +8,8 @@ deploy:
         chartPath: ./hello-world
         setValueTemplates:
           productName: "{{.PRODUCT_NAME}}"
+          "ingress.domain": "{{.PRODUCT_NAME}}-hello-world.{{.DOMAIN}}"
+          "ingress.class": "{{.ENVIRONMENT}}-app-nginx"
         setValues:
           https: true
 profiles:

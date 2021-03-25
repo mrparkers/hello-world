@@ -1,7 +1,7 @@
 pipeline {
   agent { label "minimal" }
   stages {
-    stage('Build') {
+    stage('Deploy to Staging') {
       agent {
         label "lead-toolchain-skaffold"
       }
@@ -11,6 +11,8 @@ pipeline {
       environment {
         NAMESPACE = "${env.stagingNamespace}"
         PRODUCT_NAME = "${env.product}"
+        DOMAIN = "${env.stagingDomain}"
+        ENVIRONMENT = "staging"
       }
       steps {
         container('skaffold') {
@@ -36,6 +38,8 @@ pipeline {
       environment {
         NAMESPACE = "${env.productionNamespace}"
         PRODUCT_NAME = "${env.product}"
+        DOMAIN = "${env.productionDomain}"
+        ENVIRONMENT = "prod"
       }
       steps {
         container('skaffold') {
