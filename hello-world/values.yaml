@@ -12,3 +12,5 @@ image:
 
 service:
   type: ClusterIP
+
+imagePullSecret: "image-pull-secret"

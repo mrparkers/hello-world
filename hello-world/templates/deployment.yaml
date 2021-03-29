@@ -14,6 +14,10 @@ spec:
       labels:
         app: {{ .Values.appName }}
     spec:
+      {{- if .Values.imagePullSecret }}
+      imagePullSecrets:
+        - {{ .Values.imagePullSecret }}
+      {{- end }}
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
