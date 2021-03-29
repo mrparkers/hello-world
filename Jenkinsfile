@@ -36,7 +36,7 @@ pipeline {
       steps {
         container('skaffold') {
           sh '''
-            helm upgrade --install app charts/hello-world -n ${NAMESPACE} \
+            helm upgrade --install app ./hello-world -n ${NAMESPACE} \
               --set image.repository=${DOCKER_DEFAULT_REPO}/hello-world \
               --set image.tag=${DOCKER_TAG} \
               --set ingress.domain=${APP_DOMAIN} \
@@ -68,7 +68,7 @@ pipeline {
       steps {
         container('skaffold') {
           sh '''
-            helm upgrade --install app charts/hello-world -n ${NAMESPACE} \
+            helm upgrade --install app ./hello-world -n ${NAMESPACE} \
               --set image.repository=${DOCKER_DEFAULT_REPO}/hello-world \
               --set image.tag=${DOCKER_TAG} \
               --set ingress.domain=${APP_DOMAIN} \
